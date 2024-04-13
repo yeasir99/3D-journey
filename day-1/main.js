@@ -2,38 +2,49 @@ import './style.css';
 
 import * as THREE from 'three';
 
-// get canvas
-
-const canvas = document.querySelector('.webgl');
-
-// create scean
+// scene
 
 const scene = new THREE.Scene();
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
+// setup Mesh
 
-const meterial = new THREE.MeshBasicMaterial({
-  color: 'red',
-});
+const geomatry = new THREE.BoxGeometry(1, 1, 1);
 
-const mesh = new THREE.Mesh(geometry, meterial);
+const meterials = new THREE.MeshBasicMaterial({ color: 'red' });
+
+const mesh = new THREE.Mesh(geomatry, meterials);
 
 scene.add(mesh);
 
-const aspect = {
+// setup camera
+
+const size = {
   width: window.innerWidth,
   height: window.innerHeight,
 };
 
-const camera = new THREE.PerspectiveCamera(75, aspect.width / aspect.height);
+const camera = new THREE.PerspectiveCamera(75, size.width / size.height);
 
-camera.position.z = 3;
-camera.position.x = 1;
+camera.position.z = 2;
 
 scene.add(camera);
 
+// setup renderar
+
+const canvas = document.querySelector('.webgl');
+
 const renderer = new THREE.WebGLRenderer({ canvas });
 
-renderer.setSize(aspect.width, aspect.height);
+renderer.setSize(size.width, size.height);
 
-renderer.render(scene, camera);
+const clock = new THREE.Clock();
+
+const animate = () => {
+  const elapsedTime = clock.getElapsedTime();
+
+  mesh.rotation.y = elapsedTime * Math.PI;
+  renderer.render(scene, camera);
+  window.requestAnimationFrame(animate);
+};
+
+animate();
