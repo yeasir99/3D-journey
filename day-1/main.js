@@ -2,6 +2,8 @@ import './style.css';
 
 import * as THREE from 'three';
 
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
 // scene
 
 const scene = new THREE.Scene();
@@ -93,6 +95,17 @@ const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(size.width, size.height);
 const clock = new THREE.Clock();
 
+// setup orbit controls
+
+const controls = new OrbitControls(camera, canvas);
+
+// controls.autoRotate = true;
+
+// controls.autoRotateSpeed = 6;
+
+controls.enableDamping = true;
+controls.dampingFactor = 0.01;
+
 // fixing screen size and mouse position
 
 const cursor = {
@@ -145,6 +158,8 @@ const animate = () => {
   // redMash.rotation.y = elapsedTime * Math.PI;
   // blueMash.rotation.y = -elapsedTime * Math.PI;
   // greenMash.rotation.z = elapsedTime * Math.PI;
+
+  controls.update();
 
   purpleMash.lookAt(new THREE.Vector3(cursor.x, -cursor.y, 1));
   renderer.render(scene, camera);
