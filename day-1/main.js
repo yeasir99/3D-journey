@@ -70,8 +70,8 @@ scene.add(redMash, blueMash, greenMash, whiteMash, purpleMash, pinkMash);
 
 // using lookAt method
 
-whiteMash.lookAt(greenMash.position);
-blueMash.lookAt(pinkMash.position);
+// whiteMash.lookAt(greenMash.position);
+// blueMash.lookAt(pinkMash.position);
 
 // setup camera
 const size = {
@@ -95,6 +95,18 @@ renderer.setSize(size.width, size.height);
 
 const clock = new THREE.Clock();
 
+// fixing screen size and mouse position
+
+const cursor = {
+  x: 0,
+  y: 0,
+};
+
+window.addEventListener('mousemove', e => {
+  cursor.x = e.clientX / size.width - 0.5;
+  cursor.y = e.clientY / size.height - 0.5;
+});
+
 // setup animation
 
 const animate = () => {
@@ -113,6 +125,8 @@ const animate = () => {
   // redMash.rotation.y = elapsedTime * Math.PI;
   // blueMash.rotation.y = -elapsedTime * Math.PI;
   // greenMash.rotation.z = elapsedTime * Math.PI;
+
+  purpleMash.lookAt(new THREE.Vector3(cursor.x, -cursor.y, 1));
   renderer.render(scene, camera);
   window.requestAnimationFrame(animate);
 };
