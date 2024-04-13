@@ -90,9 +90,7 @@ scene.add(camera);
 const canvas = document.querySelector('.webgl');
 
 const renderer = new THREE.WebGLRenderer({ canvas });
-
 renderer.setSize(size.width, size.height);
-
 const clock = new THREE.Clock();
 
 // fixing screen size and mouse position
@@ -102,6 +100,28 @@ const cursor = {
   y: 0,
 };
 
+// responsive canvas
+
+window.addEventListener('resize', () => {
+  size.width = window.innerWidth;
+  size.height = window.innerHeight;
+
+  // fixing camera aspect ratio
+
+  camera.aspect = size.width / size.height;
+
+  // update camera projection Matrix
+
+  camera.updateProjectionMatrix();
+
+  // setup renderer size
+  renderer.setSize(size.width, size.height);
+
+  // set pixel ratio
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+// capture mouse position
 window.addEventListener('mousemove', e => {
   cursor.x = e.clientX / size.width - 0.5;
   cursor.y = e.clientY / size.height - 0.5;
