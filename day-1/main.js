@@ -39,6 +39,8 @@ renderer.setSize(size.width, size.height);
 
 const clock = new THREE.Clock();
 
+// setup animation
+
 const animate = () => {
   const elapsedTime = clock.getElapsedTime();
 
