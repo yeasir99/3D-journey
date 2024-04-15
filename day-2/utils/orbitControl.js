@@ -3,8 +3,11 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const scene = new THREE.Scene();
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const meterials = new THREE.MeshBasicMaterial({ color: 'blue' });
+const geometry = new THREE.BoxGeometry(1, 1, 1, 4, 4, 4);
+const meterials = new THREE.MeshBasicMaterial({
+  color: 'pink',
+  wireframe: true,
+});
 
 const mesh = new THREE.Mesh(geometry, meterials);
 
@@ -15,8 +18,8 @@ const aspect = {
   y: window.innerHeight,
 };
 
-const camera = new THREE.PerspectiveCamera(75, aspect.x / aspect.y);
-camera.position.z = 4;
+const camera = new THREE.PerspectiveCamera(50, aspect.x / aspect.y);
+camera.position.z = 2;
 
 scene.add(camera);
 
